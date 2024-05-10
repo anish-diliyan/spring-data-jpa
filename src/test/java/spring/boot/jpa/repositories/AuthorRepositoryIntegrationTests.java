@@ -12,6 +12,8 @@ import spring.boot.jpa.repository.AuthorRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.StreamSupport;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -61,4 +63,32 @@ public class AuthorRepositoryIntegrationTests {
         assertThat(result).isPresent();
         //assertThat(result.get()).isEqualTo(authorA);
     }
+
+    @Test
+    public void filterAgeGreaterThan(){
+      Author authorA = TestDataUtil.createTestAuthorA();
+      underTest.save(authorA);
+      Author authorB = TestDataUtil.createTestAuthorB();
+      underTest.save(authorB);
+      Author authorC = TestDataUtil.createTestAuthorC();
+      underTest.save(authorC);
+
+      Iterable<Author> authors = underTest.ageLessThan(50);
+      assertThat(authors).hasSize(2);
+    }
+
+    @Test
+    public void filterAgeLessThan(){
+        Author authorA = TestDataUtil.createTestAuthorA();
+        underTest.save(authorA);
+        Author authorB = TestDataUtil.createTestAuthorB();
+        underTest.save(authorB);
+        Author authorC = TestDataUtil.createTestAuthorC();
+        underTest.save(authorC);
+
+        Iterable<Author> authors = underTest.filterAgeLessThanXYZ(50);
+        assertThat(authors).hasSize(2);
+    }
+
+
 }
