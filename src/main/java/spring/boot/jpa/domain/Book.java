@@ -2,11 +2,16 @@ package spring.boot.jpa.domain;
 
 
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
 
+
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "books")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book {
     @Id
     // provide isbn when book is created
